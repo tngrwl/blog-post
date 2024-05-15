@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from "react";
-import { Table, Space, Modal, AutoComplete, Button } from "antd";
+import { Table, Space, Modal, AutoComplete } from "antd";
 import axios from "axios";
 
 const ViewAllBlogs = () =>{
