@@ -8,7 +8,9 @@ const NewBlogForm = () =>{
 
     const submit = () =>{
         axios.post("http://localhost:3001/api/blog-insert",{"title":title,
-        "Description": description})
+        "Description": description}).then(res=>{
+          alert("Blog Inserted successfully")
+        })
     }
   return <>
     <h3>Create a blog</h3>
