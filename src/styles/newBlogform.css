@@ -1,0 +1,13 @@
+.tabs{
+    display: grid;
+    width: 100%;
+    justify-content: center;
+
+}
+
+.div-tag{
+    margin: 7px;
+    width: 500px;
+    display: flex;
+    justify-content:  space-evenly;
+}
