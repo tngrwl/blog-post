@@ -7,9 +7,10 @@ const ViewAllBlogs = () =>{
     const [modal, setModal] = useState(false);
     const [title,setTitle] = useState("");
     const [description,setDescription] = useState("");
+    const [id,setId] = useState("");
 
     const columns = [{key:"title",dataIndex:"title", title:"Title"},
-    {key:"Description",dataIndex:"Description",title:"Description"},
+    {key:"Description",dataIndex:"description",title:"Description"},
 
     {key:"action", title:"action", 
     render: (_, record) => (
@@ -21,27 +22,38 @@ const ViewAllBlogs = () =>{
     }];
 
     const deleteButton = (record)=>{
-        axios.get(`http://localhost:3001/api/blog-delete/`+ record.id)
+        axios.get(`http://localhost:3001/api/blog-delete/`+ record.id).then(res=>{
+          getBlogs()
+        })
     }
     const editButton = (record)=>{
         console.log(record);
-        setDescription(record.Description);
+        setDescription(record.description);
         setTitle(record.title);
         setModal(true);
+        setId(record.id);
+    }
+
+    const getBlogs = () => {
+      axios.get("http://localhost:3001/api/blog").then(res=>{
+        console.log(res);
+        setBlogsData(res.data.data)
+    })
     }
 
 
 
     const submit = () =>{
         axios.post("http://localhost:3001/api/blog-update",{"title":title,
-        "Description": description})
+        "Description": description, id: id}).then(res=>{
+          setModal(false);
+          getBlogs();
+        })
+     
     }
 
     useEffect(()=>{
-        axios.get("http://localhost:3001/api/blog").then(res=>{
-            console.log(res);
-            setBlogsData(res.data.data)
-        })
+      getBlogs()
         
     },[])
   return <>
